@@ -26,10 +26,10 @@ const requestListener = async (req, res) => {
     body += chunk;
   });
 
-  if (req.url == "/posts" && req.method == "GET") {
+  if (req.url === "/posts" && req.method === "GET") {
     const allPost = await Post.find();
     handleSuccess(res, allPost);
-  } else if (req.url == "/posts" && req.method == "POST") {
+  } else if (req.url === "/posts" && req.method === "POST") {
     req.on("end", async () => {
       try {
         const post = JSON.parse(body);
@@ -44,10 +44,10 @@ const requestListener = async (req, res) => {
         handleError(res, "更新失敗");
       }
     });
-  } else if (req.url == "/posts" && req.method == "DELETE") {
+  } else if (req.url === "/posts" && req.method === "DELETE") {
     await Post.deleteMany();
     handleSuccess(res, "已刪除全部資料");
-  } else if (req.url.startsWith("/posts/") && req.method == "DELETE") {
+  } else if (req.url.startsWith("/posts/") && req.method === "DELETE") {
     const id = req.url.split("/").pop();
     const data = await Post.findById(id);
 
@@ -57,6 +57,7 @@ const requestListener = async (req, res) => {
     } else {
       handleError(res, "找不到此筆資料,刪除失敗");
     }
+  } else if (req.method === "OPTIONS") {
     res.writeHead(200, headers);
     res.end();
   } else {
