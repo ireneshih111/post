@@ -35,7 +35,7 @@ const requestListener = async (req, res) => {
         const post = JSON.parse(body);
         // 自定義回傳錯誤的訊息
         if (!post.name) return handleError(res, "貼文名稱未填寫");
-        if (!post.content) return handleError(res, "貼文內容未填寫");
+        if (!post.content.trim()) return handleError(res, "貼文內容未填寫");
 
         await Post.create(post);
         handleSuccess(res, "更新成功");
