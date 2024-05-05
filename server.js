@@ -51,9 +51,12 @@ const requestListener = async (req, res) => {
     const id = req.url.split("/").pop();
     const data = await Post.findById(id);
 
-    await Post.findByIdAndDelete(id);
-    handleSuccess(res, `已刪除${data.name}`);
-  } else if (req.method == "OPTIONS") {
+    if (data !== null) {
+      await Post.findByIdAndDelete(id);
+      handleSuccess(res, `已刪除${data.name}`);
+    } else {
+      handleError(res, "找不到此筆資料,刪除失敗");
+    }
     res.writeHead(200, headers);
     res.end();
   } else {
