@@ -45,6 +45,22 @@ const requestListener = async (req, res) => {
         handleError(res, "更新失敗");
       }
     });
+  } else if (req.url.startsWith("/posts/") && req.method === "PATCH") {
+    const id = req.url.split("/").pop();
+    req.on("end", async () => {
+      try {
+        const post = JSON.parse(body);
+        // 自定義回傳錯誤的訊息
+        if (!post.name) return handleError(res, "貼文名稱未填寫");
+        if (!post.content.trim()) return handleError(res, "貼文內容未填寫");
+
+        await Post.findByIdAndUpdate(id, post);
+        handleSuccess(res, "更新成功");
+        return;
+      } catch (error) {
+        handleError(res, "更新失敗");
+      }
+    });
   } else if (req.url === "/posts" && req.method === "DELETE") {
     await Post.deleteMany();
     handleSuccess(res, "已刪除全部資料");
