@@ -1,6 +1,7 @@
 const http = require("http");
 const mongoose = require("mongoose");
 const Post = require("./models/post");
+const headers = require("./headers");
 const dotenv = require("dotenv");
 const handleSuccess = require("./handleSuccess");
 const handleError = require("./handlerError");
