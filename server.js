@@ -39,10 +39,10 @@ const requestListener = async (req, res) => {
         if (!post.content.trim()) return handleError(res, "貼文內容未填寫");
 
         await Post.create(post);
-        handleSuccess(res, "更新成功");
+        handleSuccess(res, "新增成功");
         return;
       } catch (error) {
-        handleError(res, "更新失敗");
+        handleError(res, "新增失敗");
       }
     });
   } else if (req.url.startsWith("/posts/") && req.method === "PATCH") {
