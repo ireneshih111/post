@@ -5,6 +5,7 @@ const headers = require("./headers");
 const dotenv = require("dotenv");
 const handleSuccess = require("./handleSuccess");
 const handleError = require("./handlerError");
+const { checkPost } = require("./postHelper");
 
 dotenv.config({ path: "./config.env" });
 const DB = process.env.DATABASE.replace(
@@ -34,10 +35,7 @@ const requestListener = async (req, res) => {
     req.on("end", async () => {
       try {
         const post = JSON.parse(body);
-        // 自定義回傳錯誤的訊息
-        if (!post.name) return handleError(res, "貼文名稱未填寫");
-        if (!post.content.trim()) return handleError(res, "貼文內容未填寫");
-
+        checkPost(post, res);
         await Post.create(post);
         handleSuccess(res, "新增成功");
         return;
@@ -50,10 +48,7 @@ const requestListener = async (req, res) => {
     req.on("end", async () => {
       try {
         const post = JSON.parse(body);
-        // 自定義回傳錯誤的訊息
-        if (!post.name) return handleError(res, "貼文名稱未填寫");
-        if (!post.content.trim()) return handleError(res, "貼文內容未填寫");
-
+        checkPost(post, res);
         await Post.findByIdAndUpdate(id, post);
         handleSuccess(res, "更新成功");
         return;
