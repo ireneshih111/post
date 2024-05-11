@@ -45,23 +45,23 @@ const requestListener = async (req, res) => {
     });
   } else if (req.url.startsWith("/posts/") && req.method === "PATCH") {
     const id = req.url.split("/").pop();
-    const data = await Post.findById(id);
 
-    if (data !== null) {
-      req.on("end", async () => {
-        try {
+    req.on("end", async () => {
+      try {
+        const data = await Post.findById(id);
+        if (data !== null) {
           const post = JSON.parse(body);
           checkPost(post, res);
           await Post.findByIdAndUpdate(id, post);
           handleSuccess(res, "更新成功");
           return;
-        } catch (error) {
-          handleError(res, "更新失敗");
+        } else {
+          handleError(res, "找不到此筆資料,更新失敗");
         }
-      });
-    } else {
-      handleError(res, "找不到此筆資料,更新失敗");
-    }
+      } catch (error) {
+        handleError(res, "更新失敗");
+      }
+    });
   } else if (req.url === "/posts" && req.method === "DELETE") {
     await Post.deleteMany();
     handleSuccess(res, "已刪除全部資料");
