@@ -80,8 +80,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "https://post-y9o9.onrender.com/posts/662ce4616cab5655983706e7",
+					"raw": "https://post-y9o9.onrender.com/posts/663f346ef765b785c5668d72",
 					"protocol": "https",
 					"host": [
 						"post-y9o9",
@@ -90,7 +94,37 @@
 					],
 					"path": [
 						"posts",
-						"662ce4616cab5655983706e7"
+						"663f346ef765b785c5668d72"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update post",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"name\": \"阿魚\",\n            \"content\": \"阿魚最愛喝飲料\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://post-y9o9.onrender.com/posts/663ce989016a7d3d63f09d63",
+					"protocol": "https",
+					"host": [
+						"post-y9o9",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"663ce989016a7d3d63f09d63"
 					]
 				}
 			},
